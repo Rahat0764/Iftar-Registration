@@ -20,15 +20,15 @@ let isChargeAdded = false;
 
 function enToBn(num) {
     const map = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
-    return String(num).replace(/[09]/g, d => map[d]);
+    return String(num).replace(/[0-9]/g, d => map[d]);
 }
 
 function formatPrice(price) {
-    return price.toLocaleString('en-IN');
+    return price.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
 guestInput.addEventListener("input", (e) => {
-    const guests = parseInt(e.target.value);
+    const guests = Math.floor(parseFloat(e.target.value));
     if(guests > 0) {
         currentBaseTotal = guests * 150;
         isChargeAdded = false;
@@ -42,27 +42,27 @@ guestInput.addEventListener("input", (e) => {
 function updateDisplay() {
     let finalAmount = currentBaseTotal;
     if (isChargeAdded) {
-        const charge = Math.ceil((currentBaseTotal / 1000) * 18.5);
+        const charge = (currentBaseTotal / 1000) * 18.5;
         finalAmount += charge;
     }
     
-    const guests = guestInput.value;
+    const guests = Math.floor(parseFloat(guestInput.value));
     feeLabel.innerText = `মোট ফি: (${enToBn(guests)} জনের জন্য)`;
     totalFeeDisplay.innerText = `${formatPrice(finalAmount)} ৳`;
     
-    if (!document.getElementById('chargeBtn')) {
-        const btn = document.createElement('div');
-        btn.id = 'chargeBtn';
-        btn.innerHTML = `<button type="button" onclick="toggleCharge()" style="background:#b45309; margin-top:10px; padding:10px; font-size:14px;">⚡ চার্জ যোগ করুন (১৮.৫৳/হাজার)</button>`;
-        totalFeeDisplay.after(btn);
+    let btnContainer = document.getElementById('chargeBtnContainer');
+    if (!btnContainer) {
+        btnContainer = document.createElement('div');
+        btnContainer.id = 'chargeBtnContainer';
+        btnContainer.style.textAlign = 'center';
+        totalFeeDisplay.after(btnContainer);
     }
+    
+    btnContainer.innerHTML = `<button type="button" onclick="toggleCharge()" style="background:#b45309; margin-top:5px; padding:8px 15px; font-size:13px; width:auto; display:inline-block;">${isChargeAdded ? "❌ চার্জ বাদ দিন" : "⚡ চার্জ যোগ করুন"}</button>`;
 }
 
 function toggleCharge() {
     isChargeAdded = !isChargeAdded;
-    const btn = document.querySelector('#chargeBtn button');
-    btn.innerText = isChargeAdded ? "❌ চার্জ বাদ দিন" : "⚡ চার্জ যোগ করুন (১৮.৫৳/হাজার)";
-    btn.style.background = isChargeAdded ? "#ef4444" : "#b45309";
     updateDisplay();
 }
 
@@ -74,7 +74,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
 
     const name = document.getElementById("userName").value;
     const phone = document.getElementById("userPhone").value;
-    const guests = document.getElementById("guestCount").value;
+    const guests = Math.floor(parseFloat(document.getElementById("guestCount").value));
     const trx = document.getElementById("trxID").value;
     const finalAmount = document.getElementById("totalFee").innerText;
 
@@ -101,7 +101,8 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
 
         document.getElementById("registrationForm").reset();
         paymentSection.style.display = "none";
-        if(document.getElementById('chargeBtn')) document.getElementById('chargeBtn').remove();
+        const extraBtn = document.getElementById('chargeBtnContainer');
+        if(extraBtn) extraBtn.remove();
     } catch (error) {
         Swal.fire({ title: 'দুঃখিত!', text: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।', icon: 'error' });
     } finally {
