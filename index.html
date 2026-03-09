@@ -2,281 +2,349 @@
 <html lang="bn">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iftar With Vai Brother | 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root {
-      --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --gold: #fbbf24;
-      --emerald: #10b981;
-      --text: #f8fafc;
-    }
+<title>Iftar With Vai Brother | 2026</title>
 
-    * {
-      box-sizing: border-box;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+<style>
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
-      background-attachment: fixed;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
+:root{
+--bg-dark:#0f172a;
+--card-bg:rgba(30,41,59,0.7);
+--gold:#fbbf24;
+--emerald:#10b981;
+--text:#f8fafc;
+}
 
-    header {
-      width: 100%;
-      padding: 40px 20px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5);
-      border-bottom: 2px solid var(--gold);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
+*{
+box-sizing:border-box;
+transition:.3s;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      animation: fadeInDown 0.8s ease;
-    }
+body{
+margin:0;
+font-family:'Segoe UI',system-ui;
+background:linear-gradient(135deg,#020617 0%,#0f172a 50%,#1e1b4b 100%);
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+min-height:100vh;
+overflow-x:hidden;
+}
 
-    .container {
-      max-width: 450px;
-      width: 90%;
-      margin: 40px 0;
-      padding: 30px;
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      border: 1px solid rgba(251, 191, 36, 0.2);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      animation: fadeInUp 0.8s ease;
-    }
+/* lantern */
 
-    .info-box {
-      background: rgba(15, 23, 42, 0.6);
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 1.05rem;
-    }
+.lantern{
+position:fixed;
+top:-120px;
+font-size:40px;
+animation:floatLantern linear infinite;
+}
 
-    .fee-badge {
-      background: linear-gradient(90deg, #b45309, #d97706);
-      color: white;
-      padding: 12px;
-      border-radius: 10px;
-      margin: 20px 0;
-      font-weight: bold;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
-    }
+.l1{left:10%;animation-duration:12s;}
+.l2{left:35%;animation-duration:15s;}
+.l3{left:65%;animation-duration:18s;}
+.l4{left:85%;animation-duration:14s;}
 
-    #countdown {
-      font-size: 1.4rem;
-      color: var(--gold);
-      margin-bottom: 25px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
+@keyframes floatLantern{
+0%{transform:translateY(-120px) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
 
-    .form-group {
-      margin-bottom: 15px;
-      text-align: left;
-    }
+/* header */
 
-    input {
-      width: 100%;
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      color: white;
-      font-size: 1rem;
-    }
+header{
+width:100%;
+padding:40px 20px;
+text-align:center;
+background:rgba(0,0,0,.5);
+border-bottom:2px solid var(--gold);
+}
 
-    input:focus {
-      outline: none;
-      border-color: var(--gold);
-      background: rgba(255, 255, 255, 0.1);
-    }
+header h1{
+margin:0;
+font-size:2rem;
+color:var(--gold);
+}
 
-    #paymentSection {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      border-left: 4px solid var(--emerald);
-      animation: slideIn 0.4s ease;
-    }
+/* card */
 
-    #paymentSection h4 {
-      margin: 0 0 10px 0;
-      color: var(--emerald);
-    }
+.container{
+max-width:450px;
+width:90%;
+margin:40px 0;
+padding:30px;
+background:var(--card-bg);
+backdrop-filter:blur(12px);
+border-radius:20px;
+border:1px solid rgba(251,191,36,.2);
+}
 
-    .total-price {
-      font-size: 1.8rem;
-      color: var(--gold);
-      font-weight: bold;
-      display: block;
-      margin: 10px 0;
-    }
+/* info */
 
-    button[type="submit"] {
-      width: 100%;
-      padding: 16px;
-      margin-top: 20px;
-      background: var(--emerald);
-      border: none;
-      border-radius: 10px;
-      color: white;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-    }
+.info-box{
+background:rgba(15,23,42,.6);
+padding:15px;
+border-radius:12px;
+margin-bottom:12px;
+}
 
-    button[type="submit"]:hover {
-      background: #059669;
-      transform: translateY(-2px);
-    }
+.fee-badge{
+background:linear-gradient(90deg,#b45309,#d97706);
+padding:12px;
+border-radius:10px;
+margin:20px 0;
+font-weight:bold;
+text-align:center;
+}
 
-    footer {
-      margin-top: auto;
-      padding: 30px;
-      opacity: 0.5;
-      font-size: 0.9rem;
-    }
+/* countdown */
 
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-10px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-  </style>
+#countdown{
+font-size:1.4rem;
+color:var(--gold);
+margin-bottom:25px;
+font-weight:800;
+text-align:center;
+}
+
+/* inputs */
+
+input{
+width:100%;
+padding:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+border-radius:10px;
+color:white;
+font-size:1rem;
+margin-bottom:15px;
+}
+
+/* payment */
+
+#paymentSection{
+display:none;
+margin-top:20px;
+padding:20px;
+background:rgba(0,0,0,.3);
+border-radius:12px;
+border-left:4px solid var(--emerald);
+}
+
+.total-price{
+font-size:1.8rem;
+color:var(--gold);
+font-weight:bold;
+display:block;
+margin:10px 0;
+text-align:center;
+}
+
+/* bkash */
+
+.bkash-title{
+font-size:14px;
+opacity:.8;
+margin-bottom:8px;
+text-align:center;
+}
+
+/* DIFFERENT COLOR */
+
+.bkash-number-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:linear-gradient(135deg,#022c22,#065f46);
+border:1px solid #10b981;
+border-radius:10px;
+padding:14px 16px;
+font-size:18px;
+font-weight:bold;
+box-shadow:0 0 10px rgba(16,185,129,.4);
+}
+
+.copy-btn{
+cursor:pointer;
+font-size:18px;
+background:rgba(255,255,255,.15);
+padding:6px 8px;
+border-radius:6px;
+}
+
+.copy-success{
+color:#22c55e;
+font-size:13px;
+margin-left:10px;
+display:none;
+}
+
+/* instruction spacing */
+
+.instruction{
+font-size:12px;
+opacity:.75;
+margin-top:15px;
+margin-bottom:6px;
+}
+
+/* button */
+
+button{
+width:100%;
+padding:16px;
+margin-top:20px;
+background:var(--emerald);
+border:none;
+border-radius:10px;
+color:white;
+font-size:1.1rem;
+font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+margin-top:auto;
+padding:30px;
+opacity:.5;
+font-size:.9rem;
+}
+
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🌙 Iftar With Vai Brother</h1>
-  </header>
+<div class="lantern l1">🏮</div>
+<div class="lantern l2">🏮</div>
+<div class="lantern l3">🏮</div>
+<div class="lantern l4">🏮</div>
 
-  <div class="container">
-    <div class="info-box">📅 তারিখ: <b>১২ মার্চ ২০২৬</b></div>
-    <div class="info-box">📍 স্থান: <b>সখিপুর, টাঙ্গাইল</b></div>
-    
-    <div class="fee-badge">রেজিস্ট্রেশন ফি: ১৫০ টাকা (জনপ্রতি)</div>
+<header>
+<h1>🌙 Iftar With Vai Brother</h1>
+</header>
 
-    <div id="countdown">Loading...</div>
+<div class="container">
 
-    <form id="registrationForm" action="https://formspree.io/f/xreyeqvq" method="POST">
-      <div class="form-group">
-        <input type="text" name="Name" placeholder="আপনার নাম" required>
-      </div>
-      <div class="form-group">
-        <input type="tel" name="Phone" placeholder="ফোন নাম্বার" required>
-      </div>
-      <div class="form-group">
-        <input type="number" name="Guests" id="guestCount" placeholder="কতজন আসবেন?" min="1" required>
-      </div>
+<div class="info-box">📅 তারিখ: <b>১২ মার্চ ২০২৬</b></div>
+<div class="info-box">📍 স্থান: <b>সখিপুর, টাঙ্গাইল</b></div>
 
-      <div id="paymentSection">
-        <h4>💳 পেমেন্ট বিস্তারিত</h4>
-        <p>মোট ফি: <span class="total-price" id="totalFee">0 ৳</span></p>
-        <p>বিকাশ (Send Money): <b>01306605226</b></p>
-        <input type="text" name="TrxID" placeholder="Transaction ID (TrxID)" required style="margin-top:10px;">
-      </div>
+<div class="fee-badge">
+রেজিস্ট্রেশন ফি: ১৫০ টাকা (জনপ্রতি)
+</div>
 
-      <button type="submit" id="submitBtn">রেজিস্ট্রেশন সম্পন্ন করুন</button>
-      <div id="statusMessage" style="margin-top: 20px;"></div>
-    </form>
-  </div>
+<div id="countdown">Loading...</div>
 
-  <footer>
-    Ramadan 2026 | Sakhipur, Tangail
-  </footer>
+<form id="registrationForm" action="https://formspree.io/f/xreyeqvq" method="POST">
 
-  <script>
-    const targetDate = new Date("March 12, 2026 18:10:00").getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-      if (diff < 0) {
-        document.getElementById("countdown").innerHTML = "ইফতারের সময় হয়ে গেছে!";
-        return;
-      }
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-      document.getElementById("countdown").innerHTML = `${d}দিন : ${h}ঘণ্টা : ${m}মিনিট : ${s}সেকেন্ড`;
-    }, 1000);
+<input type="text" name="Name" placeholder="আপনার নাম" required>
 
-    const guestInput = document.getElementById("guestCount");
-    const paymentSection = document.getElementById("paymentSection");
-    const totalFeeDisplay = document.getElementById("totalFee");
+<input type="tel" name="Phone" placeholder="ফোন নাম্বার" required>
 
-    guestInput.addEventListener("input", (e) => {
-      const guests = parseInt(e.target.value);
-      if (guests > 0) {
-        totalFeeDisplay.innerText = (guests * 150) + " ৳";
-        paymentSection.style.display = "block";
-      } else {
-        paymentSection.style.display = "none";
-      }
-    });
+<input type="number" name="Guests" id="guestCount" placeholder="কতজন আসবেন?" min="1" required>
 
-    const form = document.getElementById("registrationForm");
-    const statusMessage = document.getElementById("statusMessage");
+<div id="paymentSection">
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const submitBtn = document.getElementById("submitBtn");
-      submitBtn.innerText = "জমা হচ্ছে...";
-      submitBtn.disabled = true;
-      const data = new FormData(form);
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          form.reset();
-          paymentSection.style.display = "none";
-          statusMessage.innerHTML = "<p style='color:#10b981'>✅ রেজিস্ট্রেশন সফল হয়েছে!</p>";
-        } else {
-          statusMessage.innerHTML = "<p style='color:#ef4444'>❌ ভুল হয়েছে। আবার চেষ্টা করুন।</p>";
-        }
-      } catch (error) {
-        statusMessage.innerHTML = "<p style='color:#ef4444'>❌ নেটওয়ার্ক সমস্যা!</p>";
-      }
-      submitBtn.innerText = "রেজিস্ট্রেশন সম্পন্ন করুন";
-      submitBtn.disabled = false;
-    });
-  </script>
+<h4>💳 পেমেন্ট বিস্তারিত</h4>
+
+<p>মোট ফি:</p>
+<span class="total-price" id="totalFee">0 ৳</span>
+
+<div class="bkash-title">বিকাশ (Send Money)</div>
+
+<div class="bkash-number-box">
+
+<span id="bkashNumber">01306605226</span>
+
+<div>
+<span class="copy-btn" onclick="copyNumber()">📋</span>
+<span class="copy-success" id="copySuccess">✔ কপি হয়েছে</span>
+</div>
+
+</div>
+
+<div class="instruction">
+এখানে আপনার Transaction Code টি বসান
+</div>
+
+<input type="text" name="TrxID" placeholder="Transaction ID (TrxID)" required>
+
+</div>
+
+<button type="submit" id="submitBtn">
+রেজিস্ট্রেশন সম্পন্ন করুন
+</button>
+
+<div id="statusMessage"></div>
+
+</form>
+
+</div>
+
+<footer>
+Ramadan 2026 | Sakhipur, Tangail
+</footer>
+
+<script>
+
+const targetDate=new Date("March 12, 2026 18:10:00").getTime();
+
+setInterval(()=>{
+
+const now=new Date().getTime();
+const diff=targetDate-now;
+
+if(diff<0){
+document.getElementById("countdown").innerHTML="ইফতারের সময় হয়ে গেছে!";
+return;
+}
+
+const d=Math.floor(diff/(1000*60*60*24));
+const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+const m=Math.floor((diff%(1000*60*60))/(1000*60));
+const s=Math.floor((diff%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+`${d}দিন : ${h}ঘণ্টা : ${m}মিনিট : ${s}সেকেন্ড`;
+
+},1000);
+
+const guestInput=document.getElementById("guestCount");
+const paymentSection=document.getElementById("paymentSection");
+const totalFeeDisplay=document.getElementById("totalFee");
+
+guestInput.addEventListener("input",(e)=>{
+
+const guests=parseInt(e.target.value);
+
+if(guests>0){
+totalFeeDisplay.innerText=(guests*150)+" ৳";
+paymentSection.style.display="block";
+}else{
+paymentSection.style.display="none";
+}
+
+});
+
+function copyNumber(){
+
+const number=document.getElementById("bkashNumber").innerText;
+navigator.clipboard.writeText(number);
+
+const msg=document.getElementById("copySuccess");
+
+msg.style.display="inline";
+
+setTimeout(()=>{
+msg.style.display="none";
+},2000);
+
+}
+
+</script>
 
 </body>
 </html>
