@@ -1,0 +1,89 @@
+:root {
+    --bg-dark: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --gold: #fbbf24;
+    --emerald: #10b981;
+    --text: #f8fafc;
+}
+
+* { box-sizing: border-box; transition: .3s; }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui;
+    background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    animation: pageFade 1s ease;
+}
+
+@keyframes pageFade { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+.lantern { position: fixed; top: -120px; font-size: 40px; animation: floatLantern linear infinite; z-index: -1; }
+.l1 { left: 10%; animation-duration: 12s; }
+.l2 { left: 35%; animation-duration: 15s; }
+.l3 { left: 65%; animation-duration: 18s; }
+.l4 { left: 85%; animation-duration: 14s; }
+
+@keyframes floatLantern { 0% { transform: translateY(-120px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+
+header { width: 100%; padding: 40px 20px; text-align: center; background: rgba(0, 0, 0, .5); border-bottom: 2px solid var(--gold); }
+header h1 { margin: 0; font-size: 2rem; color: var(--gold); }
+
+.container {
+    max-width: 450px; width: 90%; margin: 40px 0; padding: 30px;
+    background: var(--card-bg); backdrop-filter: blur(12px);
+    border-radius: 20px; border: 1px solid rgba(251,191,36,.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.info-box { background: rgba(15, 23, 42, .6); padding: 15px; border-radius: 12px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.fee-badge { background: linear-gradient(90deg, #b45309, #d97706); padding: 12px; border-radius: 10px; margin: 20px 0; font-weight: bold; text-align: center; }
+#countdown { font-size: 1.3rem; color: var(--gold); margin-bottom: 25px; font-weight: 800; text-align: center; }
+
+input {
+    width: 100%; padding: 14px; background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .1); border-radius: 10px;
+    color: white; font-size: 1rem; margin-bottom: 15px; outline: none;
+}
+
+input:focus { border-color: var(--gold); background: rgba(255, 255, 255, .1); }
+
+#paymentSection {
+    display: none; margin-top: 20px; padding: 20px;
+    background: rgba(0, 0, 0, 0.4); border-radius: 12px;
+    border-left: 4px solid var(--emerald); animation: slideInUp 0.5s ease forwards;
+}
+
+@keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.total-price { font-size: 1.8rem; color: var(--gold); font-weight: bold; display: block; margin: 10px 0; text-align: center; }
+
+.bkash-number-box {
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(135deg, #022c22, #065f46);
+    border: 1px solid #10b981; border-radius: 10px; padding: 14px 16px; font-size: 18px; font-weight: bold;
+}
+
+.copy-btn { cursor: pointer; background: rgba(255, 255, 255, .15); padding: 6px 10px; border-radius: 6px; }
+
+button {
+    width: 100%; padding: 16px; margin-top: 20px; background: var(--emerald);
+    border: none; border-radius: 10px; color: white; font-size: 1.1rem;
+    font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+button:hover { background: #059669; transform: translateY(-2px); }
+button:disabled { background: #4b5563; cursor: not-allowed; }
+
+footer { margin-top: auto; padding: 30px; opacity: .5; font-size: .9rem; text-align: center; }
+
+.swal2-popup {
+    background: #1e293b !important;
+    color: #fff !important;
+    border-radius: 20px !important;
+}
