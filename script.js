@@ -39,7 +39,7 @@ function formatPrice(price) {
 guestInput.addEventListener("input", (e) => {
     const val = parseFloat(e.target.value);
     const guests = isNaN(val) ? 0 : Math.floor(val);
-    
+
     if(guests > 0) {
         currentBaseTotal = guests * 150;
         isChargeAdded = false;
@@ -59,27 +59,27 @@ function updateDisplay() {
         const charge = (currentBaseTotal / 1000) * 18.5;
         finalAmount += charge;
     }
-    
+
     const val = parseFloat(guestInput.value);
     const guests = isNaN(val) ? 0 : Math.floor(val);
-    
+
     feeLabel.innerText = `মোট ফি: (${enToBn(guests)} জনের জন্য)`;
     totalFeeDisplay.innerText = `${formatPrice(finalAmount)} ৳`;
-    
+
     let btnContainer = document.getElementById('chargeBtnContainer');
     if (!btnContainer) {
         btnContainer = document.createElement('div');
         btnContainer.id = 'chargeBtnContainer';
         btnContainer.style.textAlign = 'center';
-        // বাটনটি টাকার ফিগারের নিচে এবং বিকাশ লেখার উপরে বসবে
+        
         totalFeeDisplay.after(btnContainer);
     }
+
     
-    // মার্জিন অ্যাডজাস্ট করা হয়েছে যেন ঠিক মাঝখানে থাকে
     btnContainer.innerHTML = `
         <button type="button" onclick="toggleCharge()" 
             style="background:${isChargeAdded ? '#ef4444' : '#b45309'}; 
-                   margin-top: 12px; margin-bottom: 12px; padding: 8px 16px; 
+                  margin-top: 1px; margin-bottom: 19px; padding: 8px 16px; 
                    font-size: 13px; width: auto; display: inline-block; 
                    border-radius: 8px; border: none; color: white; cursor: pointer;
                    box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
@@ -107,7 +107,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     const message = `🔔 *নতুন রেজিস্ট্রেশন!*\n\n👤 *নাম:* ${name}\n📞 *ফোন:* ${phone}\n👥 *অতিথি:* ${enToBn(guests)} জন\n💰 *মোট টাকা:* ${finalAmount}\n🔑 *TrxID:* \`${trx}\``;
 
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    
+
     try {
         for (const chatId of TELEGRAM_CHAT_IDS) {
             await fetch(url, {
@@ -128,7 +128,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
         document.getElementById("registrationForm").reset();
         paymentSection.style.display = "none";
         if(document.getElementById('chargeBtnContainer')) document.getElementById('chargeBtnContainer').remove();
-        
+
     } catch (error) {
         Swal.fire({ title: 'দুঃখিত!', text: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।', icon: 'error' });
     } finally {
