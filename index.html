@@ -91,7 +91,7 @@
 
         footer { margin-top: auto; padding: 30px; opacity: .5; font-size: .9rem; text-align: center; }
         
-        /* SweetAlert Custom Dark Mode */
+        
         .swal2-popup {
             background: #1e293b !important;
             color: #fff !important;
@@ -146,7 +146,7 @@
         const TELEGRAM_CHAT_IDS = ['8395284772', '6073457658']; 
         const TELEGRAM_BOT_TOKEN = '8289877335:AAHcXDyb2pu7XjLbMxDM_g1l7EbkQEmVD_Y';
 
-        /* Countdown logic */
+        
         const targetDate = new Date("March 12, 2026 18:10:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -156,7 +156,7 @@
             document.getElementById("countdown").innerHTML = `${d} দিন : ${h} ঘণ্টা : ${m} মিনিট : ${s} সেকেন্ড`;
         }, 1000);
 
-        /* Fee Logic */
+        
         const guestInput = document.getElementById("guestCount");
         const paymentSection = document.getElementById("paymentSection");
         guestInput.addEventListener("input", (e) => {
@@ -168,7 +168,7 @@
             } else { paymentSection.style.display = "none"; }
         });
 
-        /* Registration logic with SweetAlert2 */
+        
         document.getElementById("registrationForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const btn = document.getElementById("submitBtn");
@@ -181,7 +181,7 @@
             const trx = document.getElementById("trxID").value;
             const total = guests * 150;
 
-            const message = `🔔 *নতুন রেজিস্ট্রেশন!*\n👤 *নাম:* ${name}\n📞 *ফোন:* ${phone}\n👥 *অতিথি:* ${guests} জন\n💰 *ফি:* ${total} ৳\n🔑 *TrxID:* \`${trx}\``;
+            const message = `🔔 *নতুন রেজিস্ট্রেশন!*\n\n👤 *নাম:* ${name}\n📞 *ফোন:* ${phone}\n👥 *অতিথি:* ${guests} জন\n💰 *ফি:* ${total} ৳\n🔑 *TrxID:* \`${trx}\``;
 
             const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
             
