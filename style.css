@@ -64,12 +64,26 @@ input:focus { border-color: var(--gold); background: rgba(255, 255, 255, .1); }
 .total-price { font-size: 1.8rem; color: var(--gold); font-weight: bold; display: block; margin: 10px 0; text-align: center; }
 
 .bkash-number-box {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: linear-gradient(135deg, #022c22, #065f46);
-    border: 1px solid #10b981; border-radius: 10px; padding: 14px 16px; font-size: 18px; font-weight: bold;
+    border: 1px solid #10b981;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
 }
 
-.copy-btn { cursor: pointer; background: rgba(255, 255, 255, .15); padding: 6px 10px; border-radius: 6px; }
+.copy-btn {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
 
 button {
     width: 100%; padding: 16px; margin-top: 20px; background: var(--emerald);
