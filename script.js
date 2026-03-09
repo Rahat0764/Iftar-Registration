@@ -1,7 +1,6 @@
 const TELEGRAM_CHAT_IDS = ['8395284772', '6073457658']; 
 const TELEGRAM_BOT_TOKEN = '8289877335:AAHcXDyb2pu7XjLbMxDM_g1l7EbkQEmVD_Y';
 
-// --- ইফতার কাউন্টডাউন ---
 const targetDate = new Date("March 12, 2026 18:10:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
@@ -17,7 +16,6 @@ setInterval(() => {
     document.getElementById("countdown").innerHTML = `${d} দিন : ${h} ঘণ্টা : ${m} মিনিট : ${s} সেকেন্ড`;
 }, 1000);
 
-// --- গ্লোবাল ভেরিয়েবল ---
 const guestInput = document.getElementById("guestCount");
 const paymentSection = document.getElementById("paymentSection");
 const totalFeeDisplay = document.getElementById("totalFee");
@@ -26,13 +24,11 @@ const feeLabel = document.getElementById("feeLabel");
 let currentBaseTotal = 0;
 let isChargeAdded = false;
 
-// --- সংখ্যাকে সম্পূর্ণ বাংলায় রূপান্তর করার ফাংশন ---
 function enToBn(num) {
     const map = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
     return String(num).replace(/[0-9]/g, d => map[d]);
 }
 
-// --- হাজারি কমা (Comma) এবং দশমিক ২ ঘর ফরম্যাট ---
 function formatPrice(price) {
     return price.toLocaleString('en-IN', { 
         minimumFractionDigits: 0, 
@@ -40,14 +36,13 @@ function formatPrice(price) {
     });
 }
 
-// --- গেস্ট ইনপুট লজিক ---
 guestInput.addEventListener("input", (e) => {
-    // ২.৫ বা ২.৯ লিখলে সেটাকে ২ করে দিবে (Math.floor)
-    const guests = Math.floor(parseFloat(e.target.value));
+    const val = parseFloat(e.target.value);
+    const guests = isNaN(val) ? 0 : Math.floor(val);
     
     if(guests > 0) {
         currentBaseTotal = guests * 150;
-        isChargeAdded = false; // নতুন ইনপুটে চার্জ রিসেট হবে
+        isChargeAdded = false;
         updateDisplay();
         paymentSection.style.display = "block";
     } else { 
@@ -58,34 +53,36 @@ guestInput.addEventListener("input", (e) => {
     }
 });
 
-// --- ডিসপ্লে আপডেট এবং চার্জ বাটন হ্যান্ডলার ---
 function updateDisplay() {
     let finalAmount = currentBaseTotal;
     if (isChargeAdded) {
-        // হাজারে ১৮.৫ টাকা চার্জ
         const charge = (currentBaseTotal / 1000) * 18.5;
         finalAmount += charge;
     }
     
-    const guests = Math.floor(parseFloat(guestInput.value));
+    const val = parseFloat(guestInput.value);
+    const guests = isNaN(val) ? 0 : Math.floor(val);
+    
     feeLabel.innerText = `মোট ফি: (${enToBn(guests)} জনের জন্য)`;
     totalFeeDisplay.innerText = `${formatPrice(finalAmount)} ৳`;
     
-    // চার্জ বাটন তৈরি বা আপডেট
     let btnContainer = document.getElementById('chargeBtnContainer');
     if (!btnContainer) {
         btnContainer = document.createElement('div');
         btnContainer.id = 'chargeBtnContainer';
         btnContainer.style.textAlign = 'center';
-        // টাকার ফিগারের ঠিক নিচে বাটন রাখার জন্য
+        // বাটনটি টাকার ফিগারের নিচে এবং বিকাশ লেখার উপরে বসবে
         totalFeeDisplay.after(btnContainer);
     }
     
+    // মার্জিন অ্যাডজাস্ট করা হয়েছে যেন ঠিক মাঝখানে থাকে
     btnContainer.innerHTML = `
         <button type="button" onclick="toggleCharge()" 
             style="background:${isChargeAdded ? '#ef4444' : '#b45309'}; 
-                   margin-top:2px; padding:6px 12px; font-size:12px; 
-                   width:auto; display:inline-block; border-radius:8px; border:none; color:white; cursor:pointer;">
+                   margin-top: 12px; margin-bottom: 12px; padding: 8px 16px; 
+                   font-size: 13px; width: auto; display: inline-block; 
+                   border-radius: 8px; border: none; color: white; cursor: pointer;
+                   box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
             ${isChargeAdded ? "❌ চার্জ বাদ দিন" : "⚡ চার্জ যোগ করুন"}
         </button>`;
 }
@@ -95,7 +92,6 @@ function toggleCharge() {
     updateDisplay();
 }
 
-// --- ফর্ম সাবমিশন এবং টেলিগ্রাম মেসেজ ---
 document.getElementById("registrationForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = document.getElementById("submitBtn");
@@ -141,7 +137,6 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     }
 });
 
-// --- নাম্বার কপি করার ফাংশন ---
 function copyNumber() {
     const num = document.getElementById("bkashNumber").innerText;
     navigator.clipboard.writeText(num).then(() => {
