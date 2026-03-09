@@ -1,7 +1,6 @@
 const TELEGRAM_CHAT_IDS = ['8395284772', '6073457658']; 
 const TELEGRAM_BOT_TOKEN = '8289877335:AAHcXDyb2pu7XjLbMxDM_g1l7EbkQEmVD_Y';
 
-/* Countdown Timer */
 const targetDate = new Date("March 12, 2026 18:10:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
@@ -11,19 +10,62 @@ setInterval(() => {
     document.getElementById("countdown").innerHTML = `${d} দিন : ${h} ঘণ্টা : ${m} মিনিট : ${s} সেকেন্ড`;
 }, 1000);
 
-/* Guest Fee Logic */
 const guestInput = document.getElementById("guestCount");
 const paymentSection = document.getElementById("paymentSection");
+const totalFeeDisplay = document.getElementById("totalFee");
+const feeLabel = document.getElementById("feeLabel");
+
+let currentBaseTotal = 0;
+let isChargeAdded = false;
+
+function enToBn(num) {
+    const map = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+    return String(num).replace(/[09]/g, d => map[d]);
+}
+
+function formatPrice(price) {
+    return price.toLocaleString('en-IN');
+}
+
 guestInput.addEventListener("input", (e) => {
     const guests = parseInt(e.target.value);
     if(guests > 0) {
-        document.getElementById("totalFee").innerText = (guests * 150) + " ৳";
-        document.getElementById("feeLabel").innerText = `মোট ফি: (${guests} জনের জন্য)`;
+        currentBaseTotal = guests * 150;
+        isChargeAdded = false;
+        updateDisplay();
         paymentSection.style.display = "block";
-    } else { paymentSection.style.display = "none"; }
+    } else { 
+        paymentSection.style.display = "none"; 
+    }
 });
 
-/* Form Submission */
+function updateDisplay() {
+    let finalAmount = currentBaseTotal;
+    if (isChargeAdded) {
+        const charge = Math.ceil((currentBaseTotal / 1000) * 18.5);
+        finalAmount += charge;
+    }
+    
+    const guests = guestInput.value;
+    feeLabel.innerText = `মোট ফি: (${enToBn(guests)} জনের জন্য)`;
+    totalFeeDisplay.innerText = `${formatPrice(finalAmount)} ৳`;
+    
+    if (!document.getElementById('chargeBtn')) {
+        const btn = document.createElement('div');
+        btn.id = 'chargeBtn';
+        btn.innerHTML = `<button type="button" onclick="toggleCharge()" style="background:#b45309; margin-top:10px; padding:10px; font-size:14px;">⚡ চার্জ যোগ করুন (১৮.৫৳/হাজার)</button>`;
+        totalFeeDisplay.after(btn);
+    }
+}
+
+function toggleCharge() {
+    isChargeAdded = !isChargeAdded;
+    const btn = document.querySelector('#chargeBtn button');
+    btn.innerText = isChargeAdded ? "❌ চার্জ বাদ দিন" : "⚡ চার্জ যোগ করুন (১৮.৫৳/হাজার)";
+    btn.style.background = isChargeAdded ? "#ef4444" : "#b45309";
+    updateDisplay();
+}
+
 document.getElementById("registrationForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = document.getElementById("submitBtn");
@@ -34,9 +76,9 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     const phone = document.getElementById("userPhone").value;
     const guests = document.getElementById("guestCount").value;
     const trx = document.getElementById("trxID").value;
-    const total = guests * 150;
+    const finalAmount = document.getElementById("totalFee").innerText;
 
-    const message = `🔔 *নতুন রেজিস্ট্রেশন!*\n\n👤 *নাম:* ${name}\n📞 *ফোন:* ${phone}\n👥 *অতিথি:* ${guests} জন\n💰 *ফি:* ${total} ৳\n🔑 *TrxID:* \`${trx}\``;
+    const message = `🔔 *নতুন রেজিস্ট্রেশন!*\n\n👤 *নাম:* ${name}\n📞 *ফোন:* ${phone}\n👥 *অতিথি:* ${enToBn(guests)} জন\n💰 *মোট টাকা:* ${finalAmount}\n🔑 *TrxID:* \`${trx}\``;
 
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
     
@@ -59,6 +101,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
 
         document.getElementById("registrationForm").reset();
         paymentSection.style.display = "none";
+        if(document.getElementById('chargeBtn')) document.getElementById('chargeBtn').remove();
     } catch (error) {
         Swal.fire({ title: 'দুঃখিত!', text: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।', icon: 'error' });
     } finally {
@@ -67,7 +110,6 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     }
 });
 
-/* Copy Number Function */
 function copyNumber() {
     const num = document.getElementById("bkashNumber").innerText;
     navigator.clipboard.writeText(num).then(() => {
